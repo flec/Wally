@@ -1,6 +1,5 @@
 clear all; close all; clc; %clear matrices, close figures & clear cmd wnd.
-cd('/home/joschi/Documents/Dokumente/BFH/Matlab/Projekt/')
-X = imread('Walter.png'); %Load image into matrix X
+X = imread('../img/WallyWembley.png'); %Load image into matrix X
 I = im2double(X);                  %Convert to doubles [0-1]
 imshow(I); title('Original');
 
