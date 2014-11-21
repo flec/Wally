@@ -1,6 +1,6 @@
 function [ red, green, blue ] = extractWhite( r, g, b )
 % This function returns the white values
-minVal = 200;
+minVal = .8;
 redBool = r >= minVal;
 greenBool = g >= minVal;
 blueBool = b >= minVal;
@@ -11,9 +11,9 @@ red = z;
 green = z;
 blue = z;
 
-red(bool) = r(bool)/256;
-green(bool) = g(bool)/256;
-blue(bool) = b(bool)/256;
+red(bool) = r(bool);
+green(bool) = g(bool);
+blue(bool) = b(bool);
 
 end
 
