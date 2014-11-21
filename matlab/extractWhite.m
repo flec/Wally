@@ -11,9 +11,9 @@ red = z;
 green = z;
 blue = z;
 
-red(bool) = r(bool);
-green(bool) = g(bool);
-blue(bool) = b(bool);
+red(bool) = r(bool)/256;
+green(bool) = g(bool)/256;
+blue(bool) = b(bool)/256;
 
 end
 
