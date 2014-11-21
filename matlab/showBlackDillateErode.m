@@ -7,6 +7,5 @@ black = cat(3, r, g, b); % create image from red only
 I = im2double(im2bw(black, 0.9));
 I = bwmorph(I, 'erode');    % white is dilated
 I = bwmorph(I, 'dilate');
-figure; imshow(I);
 figure, imshow(img), title('Original') % show original
-figure, imshow(black), title('Black colors') % show black image
+figure, imshow(I), title('Black colors') % show black image
