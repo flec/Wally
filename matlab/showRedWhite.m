@@ -1,5 +1,5 @@
 clear;
-img = imread('../img/WallyWembley.png'); %Load image into matrix
+img = imread('../img/WallyWembleyCropped.png'); %Load image into matrix
 [red, green, blue] = extractColorChannels(img);
 [r, g, b] = extractWhite(red, green, blue);
 redCombined = greatestArray(r, extractRed(red, green, blue));

@@ -1,4 +1,4 @@
-img = imread('../img/WallyWembley.png'); %Load image into matrix X
+img = imread('../img/WallyWembleyCropped.png'); %Load image into matrix X
 a = zeros(size(img, 1), size(img, 2)); % zeros array
 [red, green, blue] = extractColorChannels(img);
 redOnly = extractRed(red, green, blue);
