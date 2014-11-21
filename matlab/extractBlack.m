@@ -1,6 +1,6 @@
 function [ red, green, blue ] = extractBlack( r, g, b )
 % This function extracts the black values
-maxVal = 50;
+maxVal = 100;
 redBool = r < maxVal;
 greenBool = g < maxVal;
 blueBool = b < maxVal;
