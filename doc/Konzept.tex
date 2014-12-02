@@ -16,16 +16,18 @@
 \renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
 
 \begin{document}
-\section*{Walter mit Matlab suchen}
-\subsection*{Konzept}
+\title{Walter mit Matlab suchen}
+\date{}
+\maketitle
+\section*{Einleitung}
 Wer kennt die Kinderbuchreihe ``Wo ist Walter?'' nicht? Auf den Bildern sind jeweils hunderte von Menschen zu sehen, zum Beispiel Stadtszenen, Jahrmärkte oder überfüllte Strände. Walter ist immer mit einer Brille, einem rot-weiß gestreiften Pullover und einer Pudelmütze bekleidet. Dabei ist zu erwähnen, dass um das Finden von Walter zu erschweren die Umgebung von Walter ziemlich chaotisch ist, und Ähnlichkeiten mit ihm aufweist. 
 \begin{figure}[htbp] 
   \centering
      \includegraphics[width=0.7\textwidth]{img/Wally.png}
-  \caption{``Wo ist Walter?'' Im Wembley Stadion (Ausschnitt)}
+  \caption{``Wo ist Walter?'' im Wembley Stadion (Ausschnitt)}
   \label{fig:Bild1}
 \end{figure}
-
+\section*{Zielsetzung}
 In dieser Arbeit wollen wir durch die Verwendung von Computer-Perception-Algorithmen Walter mit Matlab finden. Dabei wird ein Ansatz nicht ausreichen, sondern es müssen mehrere kombiniert werden.
 \begin{itemize}
  \item Extrahieren der Farben rot und weiss um mögliche Pullover zu finden
@@ -36,5 +38,24 @@ Aus jedem dieser Ansätze wird es mehrere Mögliche Orte geben, wo Walter sein k
 
 
 \section*{Erwartete Resultate}
+Durch die in der Zielsetzung definierten Algorithmen wird ein Bereich gefunden, in dem sich Walter befinden soll. Dieser Bereich soll mittels Rechteck markiert werden.
+\begin{figure}[htbp] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{img/WallySelected.png}
+  \caption{``Wo ist Walter?'' im Wembley Stadion selektiert (Ausschnitt)}
+  \label{fig:Bild1}
+\end{figure}
+
+
+\section*{Zeitplan}
+\begin{tabular}{rl}
+    03.12.2014	&	Abschluss und Abnahme des Konzepts durch M. Stampfli \\
+    17.12.2014	&	Farben (rot, weiss, schwarz) extrahieren \\
+    24.12.2014	&	Gesichtsfarbe und Brille mittels Hough-Tranformation erkennen \\
+    07.01.2015	&	Umsetzung abschliessen  \\
+    16.01.2015	&	Dokumentation fertiggestellt.  \\
+                &	Präsentation und Abgabe der Arbeit  \\
+    
+\end{tabular}
 
 \end{document}
