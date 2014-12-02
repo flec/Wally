@@ -15,9 +15,15 @@
 \fancyfoot[C]{\thepage} %Seitennummer
 \renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
 
+% Header/Footer auch auf Titelseite
+\makeatletter
+\let\ps@plain\ps@fancy 
+\makeatother
+
 \begin{document}
 \title{Walter mit Matlab suchen}
-\date{}
+\author{Marco Füllemann, Janosch Rohdewald}
+\date{3. Dezember 2014}
 \maketitle
 \section*{Einleitung}
 Wer kennt die Kinderbuchreihe ``Wo ist Walter?'' nicht? Auf den Bildern sind jeweils hunderte von Menschen zu sehen, zum Beispiel Stadtszenen, Jahrmärkte oder überfüllte Strände. Walter ist immer mit einer Brille, einem rot-weiß gestreiften Pullover und einer Pudelmütze bekleidet. Dabei ist zu erwähnen, dass um das Finden von Walter zu erschweren die Umgebung von Walter ziemlich chaotisch ist, und Ähnlichkeiten mit ihm aufweist. 
