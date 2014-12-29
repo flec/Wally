@@ -1,6 +1,8 @@
-function [ red, green, blue ] = extractWhite( r, g, b )
+function [ red, green, blue ] = extractWhite( r, g, b, minVal )
 % This function returns the white values
-minVal = .8;
+if nargin < 4
+    minVal = .9;
+end
 redBool = r >= minVal;
 greenBool = g >= minVal;
 blueBool = b >= minVal;

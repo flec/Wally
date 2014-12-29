@@ -1,4 +1,4 @@
-function [y0detect,x0detect,Accumulator] = houghcircle(Imbinary,r,thresh,region)
+function [y0detect,x0detect,Accumulator] = HoughCircle(Imbinary,r,thresh,region)
 %HOUGHCIRCLE - detects circles with specific radius in a binary image.
 %
 %Comments:
