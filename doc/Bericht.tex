@@ -4,6 +4,7 @@
 \usepackage{wrapfig}
 \usepackage{titling}
 \usepackage{float}
+\usepackage{xargs}
 \usepackage[format=plain]{caption}
 \geometry{verbose, a4paper, tmargin=25mm, bmargin=25mm, lmargin=25mm, rmargin=25mm}
 
@@ -19,12 +20,31 @@
 \fancyfoot[C]{\thepage} %Seitennummer
 \renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
 
-
 \title{Wo ist Walter}
 \author{Marco Füllemann\newline Janosch Rohdewald}
 \date{3. Dezember 2014}
 
+% Text mit Bild links
+\newcommandx{\descFig}[5][1=0.5, 2=0.45]{
+  \noindent
+  \begin{minipage}[t][][b]{#1\textwidth}
+    #5
+  \end{minipage}
+  \hspace{0.05\textwidth}
+  \begin{minipage}[t][][t]{#2\textwidth}
+    \begin{figure}[H]
+      \vspace{-1em}
+      \includegraphics[width=1\textwidth]{#3}
+      \caption{#4}
+    \end{figure}
+  \end{minipage}
+  \newline\newline
+}
+
+
+
 \begin{document}
+% Title page
 \pagestyle{empty}
 \hbox{ % Horizontal box
   \hspace*{0.2\textwidth} % Whitespace to the left of the title page
@@ -38,6 +58,8 @@
   \vspace{0.5\textheight} % Whitespace between the title block and the publisher
   }}
 \newpage
+
+% Content
 \pagestyle{fancy}
 \section*{Zusammenfassung}
 \section*{Einleitung}
@@ -64,26 +86,37 @@ Um eine einfachere Entwicklung des Algorithmus zu ermöglichen, wurde mit einem 
   \caption{Ausschnitt Brillendetektion}
 \end{minipage}
 \end{figure}
-\subsubsection*{Brillenrand} 
-Die erste Idee war die Brille durch eine Extraktion der Brillenränder zu finden.\\
+\subsubsection*{Brillenglasränder} 
+Die erste Idee war die Brille durch eine Extraktion der Brillenglasränder zu finden.
 
-\noindent\begin{minipage}[t]{0.6\textwidth}
-Dafür wurden zuerst die (schwarzen) Pixel, bei welchen alle 3 RGB Kanäle Werte kleiner als 0.3 (Hex 0x4C) sind, extrahiert.  
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.4\textwidth}
-  \flushright
-  \includegraphics[width=0.7\textwidth]{img/glasses_blackExtract.jpg}
-\end{minipage}
+\descFig{img/glasses_1_blackExtract.jpg}{Extraktion der schwarzen Farbe}{Dafür wurden zuerst die (schwarzen) Pixel, bei welchen alle 3 RGB Kanäle Werte kleiner als 0.3 (Hex 0x4C) besitzen, extrahiert.}
+\descFig{img/glasses_1_closing.jpg}{Closing Operation}{Die Ränder der Brillengläser sind leider nicht nur schwarz, sondern gehen auch in einen Braunton über. Um die Lücken im Brillenrand zu schliessen wurde ein Closing Operator angewandt; dies bedeutet eine Dilatation gefolgt von einer Erosion.}
+\descFig{img/glasses_1_canny.jpg}{Canny edge detection}{Danach wurden mit dem Canny Algorithmus, als Vorbereitung für die Hough Transformation, die Kanten extrahiert. Dies ist notwending um bei einem ausgefüllten Objekt nicht n-Kreise, sondern nur derjenige, der aussen an der Kante liegt zu finden.}
+\descFig{img/glasses_1_hough.jpg}{Hough Raum}{Man sieht bereits im Hough Raum, dass mit sehr vielen nicht eindeutigen erkannten Kreisen gerechnet werden muss.}
+\descFig{img/glasses_1_markedCircles.jpg}{Gefundene Kreise mit Radius 3px}{Mit der Hough Transformation wurde nach Kreisen mit einem Radius von 3px gesucht. Dies entspricht dem Radius des rechten Brillenglasrandes. Dieser Kreis ist jedoch schon in diesem Bild erst unter den besten 150 Kreisen auszumachen.}
+\\
+Es steht fest, dass mit Hilfe der Extraktion der schwarzer Farbe und dem Suchen nach den Rändern der Brillengläser, die Brille nicht gefunden werden kann. Dies hat zwei massgebliche Gründe:
+\begin{itemize}
+ \item Da die Farbe Schwarz sehr oft gebraucht wird, unter anderem um Ränder/Kanten zu gestalten, sind zu viele Linien und somit mögliche Kreise übrig um nach der Brille zu suchen.
+ \item Die Brillenglasränder sind nicht perfekt und enthalten auch noch Brauntöne. Diese Lücken können zwar mit einem Closing-Operator ziemlich gut geschlossen werden, jedoch nicht komplett. Dies führt unweigerlich zu schlechteren Ergebnissen bei der Hough Transformation.
+\end{itemize}
+\newpage
+\subsubsection*{Augapfel} 
+Die die Idee, die Brillen von Walter mit Hilfe des Brillenrandes zu finden, gescheitert ist, wurde versucht nicht direkt die Brille, sondern seine markanten weissen Augen zu finden.
 
-
-
-\begin{wrapfigure}{R}{5.5cm}
-\caption{A wrapped figure}\label{wrap-fig:1}
-
-\end{wrapfigure} 
-
-
+\descFig{img/glasses_2_whiteExtract.jpg}{Extraktion der weissen Farbe}{Dafür wurden zuerst die (weissen) Pixel, bei welchen alle 3 RGB Kanäle Werte grösser als 0.85 (Hex 0xD9) besitzen, extrahiert.}
+\descFig{img/glasses_2_dilation.jpg}{Dilatation}{Die daruch entstanden ``Lücken'' im Augapfel, welche durch die schwarze Pupille oder dunklere Farbe verursacht werden, müssen geschlossen werden. Dafür ist eine Dilatation die geeignetste Operation.}
+\descFig{img/glasses_2_canny.jpg}{Canny edge detection}{Danach wurden auch wieder mit dem Canny Algorithmus, als Vorbereitung für die Hough Transformation, die Kanten extrahiert.}
+\descFig{img/glasses_2_hough.jpg}{Hough Raum}{Der Hough Raum zeigt bereits einige eindeutige Kreise, unter anderem auch jene beim Augapfel (helle weisse Punkte).}
+\descFig{img/glasses_2_markedCircles.jpg}{Gefundene Kreise mit Radius 3px (rot) und Radius 4px (blau)}{Es wurden Kreise mit einem Radius von 3px (rot) sowie 4px (blau) gesucht um beide Augäpfel zu finden. Die beiden Augäpfel sind bereits Teil der besten 5 Kreisen.}
+\descFig{img/glasses_2_markedCirclesReduced.jpg}{Reduziert auf rot-blaue Kreise mit bestimmter Distanz:\newline\(8px < Distanz < 16px\)}{Die gefunden Resultate können noch eingegrenzt werden, da die beiden Augäpfel eine gewisse Distanz zu einander haben. }
+Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeutig zu identifizieren. Um zu verifizieren, dass dies nicht nur in diesem Bildabschnitt funktioniert, wurde die Methode auf das ganze Bild angewandt. Dabei wurden unter  Berücksichtigung der besten 200 Kreisen 8 mutmassliche Augapfel Paare gefunden.
+\begin{figure}[htbp] 
+  \centering
+     \includegraphics[width=0.9\textwidth]{img/glasses_2_wholeWembley.jpg}
+  \caption{8 Mutmassliche Augapfel Paare}
+  \label{fig:Bild1}
+\end{figure}
 %\begin{SCfigure}
 %  \centering
 %  \includegraphics[height=.4\linewidth]{img/glasses_blackExtract.jpg}
