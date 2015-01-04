@@ -129,6 +129,16 @@ Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeut
 %\end{SCfigure}
 \newpage
 \subsection*{T-Shirt}
+Das Walters T-Shirt aus weissen und roten Streifen besteht, wurde versucht einen zusammenhängenden Bereich aus roten und weissen Teilen zu finden.
+
+\descFig{img/tshirt_whiteExtract.jpg}{Extraktion der weissen Farbe}{Zuerst wurden die weissen Pixel extrahiert. Das heisst die Pixel, bei welchen alle 3 RGB Kanäle Werte grösser als 0.8 besitzen.}
+
+\descFig{img/tshirt_redExtract.jpg}{Extraktion der roten Farbe}{Anschliessend wurden die roten Pixel extrahiert. Das heisst die Pixel, bei welchen der Rotkanal doppelt so gross ist, wie das Maximum des Grün- und Blaukanals.}
+
+\descFig{img/tshirt_whiteRedExtract.jpg}{Extraktion der roten und weissen Farbe}{Im nächsten Schritt wurden die roten und weissen Pixel zusammengefügt.}
+
+\descFig{img/tshirt_whiteRedDilated.jpg}{Dilatation}{Anschliessend wurde das Bild dilatiert um die Lücken zwischen den Streifen zu schliessen.}
+
 \section*{Ergebnisse, Resultate}
 
 \end{document}
