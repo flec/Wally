@@ -81,8 +81,9 @@ for x=1:size(r,1)
     end
 end
 
-%green(resultingRed) = g(resultingRed);
-%blue(resultingRed) = b(resultingRed);
+bool = [resultingRed == 1];
+green(bool) = g(bool);
+blue(bool) = b(bool);
 
 end
 
