@@ -75,8 +75,8 @@ for x=1:size(r,1)
             if redFound == 1 && whiteFound == 1
                 resultingRed = greatestArray(resultingRed, tmpRed);
                 % reset tmpRed
-                tmpRed = zeros(imageDimesion);
             end
+            tmpRed = zeros(imageDimesion);
         end
     end
 end
