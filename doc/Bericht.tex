@@ -62,11 +62,15 @@
 % Content
 \pagestyle{fancy}
 \section*{Zusammenfassung}
+In dieser Arbeit wurde mittels Computer-Perception-Algorithmen versucht Walter in einem "Wo ist Walter"\--Bild zu finden. Zu diesem Zweck wurden Pullover und Brille extrahiert um mögliche Positionen zu finden.
 \section*{Einleitung}
+Um Walter zu erkennen wurden in zwei unabhängigen Schritten sein Pullover und seine Brille extrahiert. Bei der Brillenextraktion wurde eine Kreis-Hough-Transformation mit bestimmten Radien angewandt. Bei der Extraktion seines Pullovers wurden die Farben des Pullovers extrahiert, nach erfolgter Dilatation wurde ein spezifisches Region-Growing durchgeführt.
 \section*{Grundlagen}
 \subsection*{Farbkanal Extraktion}
 \subsection*{Morphologische Operatoren}
 \subsection*{Hough Transformation}
+\subsection*{Region-Growing}
+Beim Region-Growing wird ein bestimmtes Pixel gewählt, von diesem aus werden seine Nachbarn analysiert. Wenn die Nachbarn ein bestimmtes Kriterium erfüllen (z.B. Schwellwert) werden sie zur Region hinzugefügt. Für die hinzugefügten Pixel werden wieder die Nachbarn gewählt und analysiert usw.
 \newpage
 \section*{Vorgehen, Methoden, Analysen}
 Wir haben unser Vorgehen auf den bereits erlernten Grundlagen in der CPVR-Vertiefung des Studiums aufgebaut. Dabei wollten wir die Aufgabe nicht mit Hilfe einer Ähnlichkeitssuche von Walters Bild lösen. Wir haben uns entschieden wichtige Merkmale von Walter durch die Anwendung von lokalen und globalen Operatoren zu finden. Dabei ist wichtig zu erwähnen, dass es dadurch nicht möglich ist Walter anhand eines einzigen Merkmals zu finden. Deshalb wurde der Ansatz gewählt die Brille durch eine Kreis-Hough Transformation zu finden und das T-Shirt durch das horizontale rot-weiss Muster.
@@ -138,6 +142,16 @@ Das Walters T-Shirt aus weissen und roten Streifen besteht, wurde versucht einen
 \descFig{img/tshirt_whiteRedExtract.jpg}{Extraktion der roten und weissen Farbe}{Im nächsten Schritt wurden die roten und weissen Pixel zusammengefügt.}
 
 \descFig{img/tshirt_whiteRedDilated.jpg}{Dilatation}{Anschliessend wurde das Bild dilatiert um die Lücken zwischen den Streifen zu schliessen.}
+
+\descFig{img/tshirt_connected.jpg}{Verbundene weiss/rote Fläche}{Im letzten Schritt wurde mittels Region-Growing Flächen gesucht, die rote und weisse Pixel enthalten. Zu diesem Zweck wurde über das Bild geloopt. Sobald ein rotes oder weisses Pixel gefunden wurde, wurde von diesem aus das Region-Growing gestartet. Dabei wurden die roten und weissen Pixel zur Fläche hinzugefügt. Für die hinzugefügten Pixel wurden wieder deren Nachbarn überprüft. Sobald eine Fläche vollständig gefunden wurde, wurde überprüft ob die Fläche sowohl rote als auch weisse Pixel enthält. War dies der Fall wurde die Fläche zum Resultat-Bild hinzugefügt, ansonsten wurde die Fläche verworfen.}
+
+Auf das ganze Bild angewandt ergibt sich folgendes Bild.
+\begin{figure}[htbp] 
+\centering
+  \includegraphics[width=0.9\textwidth]{img/tshirt_connectedFull.jpg}
+  \caption{Verbundene weiss/rote Fläche}
+  \label{fig:Bild1}
+\end{figure}
 
 \section*{Ergebnisse, Resultate}
 
