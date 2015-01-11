@@ -1,5 +1,5 @@
-clear all; close all; clc;
-img = imread('../img/WallyWembley.png'); %Load image into matrix
+function [foundEyeballs] = eyeballDetection(img)
+
 [red, green, blue] = extractColorChannels(img);
 [r, g, b] = extractWhite(red, green, blue, .85);
 black = cat(3, r, g, b); % create image from white only
@@ -34,7 +34,7 @@ title('hough space');
 axis on, axis normal, hold on;
 
 % Get the hough peaks peak
-nPeaks = 200;
+nPeaks = 50;
 P = houghpeaks(H, nPeaks);
 P2 = houghpeaks(H2, nPeaks);
 
@@ -61,4 +61,4 @@ while i <= nPeaks
     end
     i = i+1;
 end
-foundEyeballs
+end
