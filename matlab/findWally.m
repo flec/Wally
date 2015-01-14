@@ -1,7 +1,6 @@
 clear all; close all; clc;
-%nPeaks = 50; img = imread('../img/WallyWembleyCropped.png');
+nPeaks = 50; img = imread('../img/WallyWembleyCropped.png');
 %nPeaks = 200; img = imread('../img/WallyWembley.png');
-nPeaks = 200; img = imread('../img/maps_troy.jpg');
 eyeballs = eyeballDetection(img, nPeaks)
 
 stripAreas = findStripes(img)
