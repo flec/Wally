@@ -1,4 +1,4 @@
-function [foundEyeballs] = eyeballDetection(img)
+function [foundEyeballs] = eyeballDetection(img, nPeaks)
 
 [red, green, blue] = extractColorChannels(img);
 [r, g, b] = extractWhite(red, green, blue, .85);
@@ -34,7 +34,6 @@ title('hough space');
 axis on, axis normal, hold on;
 
 % Get the hough peaks peak
-nPeaks = 50;
 P = houghpeaks(H, nPeaks);
 P2 = houghpeaks(H2, nPeaks);
 
@@ -51,8 +50,8 @@ while i <= nPeaks
     while j <= nPeaks
         dist = sqrt((P(i,2)-P2(j,2))^2 + (P(i,1)-P2(j,1))^2);
         if dist > 8 && dist < 16
-            plot(P(i,2), P(i,1), '*', 'MarkerEdgeColor', 'red');
-            plot(P2(j,2), P2(j,1), '*', 'MarkerEdgeColor', 'blue');
+            plot(P(i,2), P(i,1), '*', 'MarkerEdgeColor', 'red', 'MarkerSize', 10, 'LineWidth', 5);
+            plot(P2(j,2), P2(j,1), '*', 'MarkerEdgeColor', 'blue', 'MarkerSize', 10, 'LineWidth', 5);
             foundEyeballs(k,1) =P(i,2);
             foundEyeballs(k,2) =P(i,1);
             k=k+1;
