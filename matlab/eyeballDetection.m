@@ -60,4 +60,5 @@ while i <= nPeaks
     end
     i = i+1;
 end
+figure
 end
