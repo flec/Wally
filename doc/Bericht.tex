@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{xargs}
 \usepackage[format=plain]{caption}
+\usepackage{hyperref}
 \geometry{verbose, a4paper, tmargin=25mm, bmargin=25mm, lmargin=25mm, rmargin=25mm}
 
 \usepackage[utf8]{inputenc}
@@ -124,7 +125,7 @@ Die die Idee, die Brillen von Walter mit Hilfe des Brillenrandes zu finden, gesc
 \descFig{img/glasses_2_hough.jpg}{Hough Raum}{Der Hough Raum zeigt bereits einige eindeutige Kreise, unter anderem auch jene beim Augapfel (helle weisse Punkte).}
 \descFig{img/glasses_2_markedCircles.jpg}{Gefundene Kreise mit Radius 3px (rot) und Radius 4px (blau)}{Es wurden Kreise mit einem Radius von 3px (rot) sowie 4px (blau) gesucht um beide Augäpfel zu finden. Die beiden Augäpfel sind bereits Teil der besten 5 Kreisen.}
 \descFig{img/glasses_2_markedCirclesReduced.jpg}{Reduziert auf rot-blaue Kreise mit bestimmter Distanz:\newline\(8px < Distanz < 16px\)}{Die gefunden Resultate können noch eingegrenzt werden, da die beiden Augäpfel eine gewisse Distanz zu einander haben. }
-Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeutig zu identifizieren. Um zu verifizieren, dass dies nicht nur in diesem Bildabschnitt funktioniert, wurde die Methode auf das ganze Bild angewandt. Dabei wurden unter  Berücksichtigung der besten 200 Kreisen 8 mutmassliche Augapfel Paare gefunden.
+Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeutig zu identifizieren. Um zu verifizieren, dass dies nicht nur in diesem Bildabschnitt funktioniert, wurde die Methode auf das ganze Bild angewandt. Dabei wurden unter  Berücksichtigung der besten 200 Kreisen 8 mutmassliche Augapfel Paare gefunden. Diese bilden den Rückgabewert der Brillen-Analyse.
 \begin{figure}[htbp] 
   \centering
      \includegraphics[width=0.9\textwidth]{img/glasses_2_wholeWembley.jpg}
@@ -155,7 +156,7 @@ Das Walters T-Shirt aus weissen und roten Streifen besteht, wurde versucht einen
 
 \descFig{img/tshirt_connected.jpg}{Verbundene weiss/rote Fläche}{Im letzten Schritt wurde mittels Region-Growing Flächen gesucht, die rote und weisse Pixel enthalten. Zu diesem Zweck wurde über das Bild geloopt. Sobald ein rotes oder weisses Pixel gefunden wurde, wurde von diesem aus das Region-Growing gestartet. Dabei wurden die roten und weissen Pixel zur Fläche hinzugefügt. Für die hinzugefügten Pixel wurden wieder deren Nachbarn überprüft. Sobald eine Fläche vollständig gefunden wurde, wurde überprüft ob die Fläche sowohl rote als auch weisse Pixel enthält. War dies der Fall wurde die Fläche zum Resultat-Bild hinzugefügt, ansonsten wurde die Fläche verworfen.}
 
-Auf das ganze Bild angewandt ergibt sich folgendes Bild.
+\noindent Auf das ganze Bild angewandt ergibt sich folgendes Bild.
 \begin{figure}[htbp] 
 \centering
   \includegraphics[width=0.9\textwidth]{img/tshirt_connectedFull.jpg}
@@ -163,7 +164,28 @@ Auf das ganze Bild angewandt ergibt sich folgendes Bild.
   \label{fig:Bild1}
 \end{figure}
 
+\noindent Mit der Matlab-Methode \emph{regionprops} wurden von der rot/weissen-Flächen die Zentren extrahiert. Diese bilden den Rückgabewert der T-Shirt-Analyse
+\newpage
+
+\subsection*{Brille und T-Shirt zusammenfügen}
+Nach der Detektion von Brille und T-Shirt wurden die beiden Daten zusammen gefügt.
+
+\descFig{img/findWally.jpg}{Mutmasslicher Walter}{Für jedes mutmassliche Augenpaar (Brille) wurden die mittels Matlab-Methode \mbox{\emph{knnsearch}} die nächsten 2 rot/weissen-Flächen (Mütze und T-Shirt) gesucht. Dort wo der Abstand zwischen Augenpaar und den beiden Flächen am kleinsten war, wurde Walter vermutet. Mittels Matlab-Methode \mbox{\emph{plot}} wurde vom Augenpaar aus ein Kreis gezeichnet um den Fund zu markieren.}
+
+\noindent Wird der Algorithmus auf das ganze Bild angewandt, wird Walter ebenfalls gefunden.
+\begin{figure}[htbp] 
+\centering
+  \includegraphics[width=0.9\textwidth]{img/findWallyFull.jpg}
+  \caption{Mutmasslicher Walter auf dem gesamten Bild}
+  \label{fig:Bild1}
+\end{figure}
+
 \newpage
 \section*{Ergebnisse, Resultate}
+
+\section*{Programm-Repository}
+Das vollständige Programm zu diesem Projekt finden Sie auf GitHub:\newline
+\url{https://github.com/flec/Wally}\newline
+Starten Sie \mbox{\emph{/matlab/findWally.m}}, um Walter zu finden.
 
 \end{document}
