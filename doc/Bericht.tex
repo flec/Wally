@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage{xargs}
 \usepackage[format=plain]{caption}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \geometry{verbose, a4paper, tmargin=25mm, bmargin=25mm, lmargin=25mm, rmargin=25mm}
 
 \usepackage[utf8]{inputenc}
@@ -63,9 +63,9 @@
 % Content
 \pagestyle{fancy}
 \section*{Zusammenfassung}
-In dieser Arbeit wurde mittels Computer-Perception-Algorithmen versucht Walter in einem "Wo ist Walter"\--Bild zu finden. Zu diesem Zweck wurden Pullover und Brille extrahiert um mögliche Positionen zu finden.
+In dieser Arbeit wurde mittels Computer-Perception-Algorithmen versucht Walter in einem "Wo ist Walter"\--Bild zu finden. Zu diesem Zweck wurden Pullover/Mütze und Brille extrahiert um mögliche Positionen zu finden. Anschliessend wurden die Resultate beider Extraktionen kombiniert und den kleinsten Abstand zwischen potenziellen Pullovern/Mützen und Brillen eruiert. Beim kleinsten Abstand wird Walter vermutet.
 \section*{Einleitung}
-Um Walter zu erkennen wurden in zwei unabhängigen Schritten sein Pullover und seine Brille extrahiert. Bei der Brillenextraktion wurde eine Kreis-Hough-Transformation mit bestimmten Radien angewandt. Bei der Extraktion seines Pullovers wurden die Farben des Pullovers extrahiert, nach erfolgter Dilatation wurde ein spezifisches Region-Growing durchgeführt.
+Um Walter zu erkennen wurden in zwei unabhängigen Schritten sein Pullover/Mütze und seine Brille extrahiert. Bei der Brillenextraktion wurde eine Kreis-Hough-Transformation mit bestimmten Radien angewandt. Bei der Extraktion seines Pullovers/Mütze wurden die dazugehörigen Farben extrahiert, nach erfolgter Dilatation wurde ein spezifisches Region-Growing durchgeführt.
 \section*{Grundlagen}
 \subsection*{Farbkanal Extraktion}
 Eine Farbkanal Extraktion ist eine simple Operation, welche die einzelnen Farbkanäle (Rot, Grün, Blau), eines Bildes extrahiert und separat zur Verfügung stellt. Mit diesen Daten können beispielsweise die roten Pixel in einem Bild gefunden werden.
@@ -80,11 +80,11 @@ patentieren liess.
 Wie bei allen globalen Transformationen üblich, ist auch die Hough-Transformation in
 ihrer einfachen Variante eine rechenintensive Aufgabe. Positiv ist, dass sie sehr robust
 und wenig anfällig gegen Rauschen ist.
+\newpage
 \subsection*{Region-Growing}
 Beim Region-Growing wird ein bestimmtes Pixel gewählt, von diesem aus werden seine Nachbarn analysiert. Wenn die Nachbarn ein bestimmtes Kriterium erfüllen (z.B. Schwellwert) werden sie zur Region hinzugefügt. Für die hinzugefügten Pixel werden wieder die Nachbarn gewählt und analysiert usw.
-\newpage
 \section*{Vorgehen, Methoden, Analysen}
-Wir haben unser Vorgehen auf den bereits erlernten Grundlagen in der CPVR-Vertiefung des Studiums aufgebaut. Dabei wollten wir die Aufgabe nicht mit Hilfe einer Ähnlichkeitssuche von Walters Bild lösen. Wir haben uns entschieden wichtige Merkmale von Walter durch die Anwendung von lokalen und globalen Operatoren zu finden. Dabei ist wichtig zu erwähnen, dass es dadurch nicht möglich ist Walter anhand eines einzigen Merkmals zu finden. Deshalb wurde der Ansatz gewählt die Brille durch eine Kreis-Hough Transformation zu finden und das T-Shirt durch das horizontale rot-weiss Muster.
+Wir haben unser Vorgehen auf den bereits erlernten Grundlagen in der CPVR-Vertiefung des Studiums aufgebaut. Dabei wollten wir die Aufgabe nicht mit Hilfe einer Ähnlichkeitssuche von Walters Bild lösen. Wir haben uns entschieden wichtige Merkmale von Walter durch die Anwendung von lokalen und globalen Operatoren zu finden. Dabei ist wichtig zu erwähnen, dass es dadurch nicht möglich ist Walter anhand eines einzigen Merkmals zu finden. Deshalb wurde der Ansatz gewählt die Brille durch eine Kreis-Hough Transformation zu finden und Pullover/Mütze durch das horizontale rot-weiss Muster.
 \subsection*{Brille}
 Um eine einfachere Entwicklung des Algorithmus zu ermöglichen, wurde mit einem Ausschnitt des Bildes gearbeitet, welcher wie folgt gewählt wurde:
 
@@ -101,6 +101,7 @@ Um eine einfachere Entwicklung des Algorithmus zu ermöglichen, wurde mit einem 
   \caption{Ausschnitt Brillendetektion}
 \end{minipage}
 \end{figure}
+\newpage
 \subsubsection*{Brillenglasränder} 
 Die erste Idee war die Brille durch eine Extraktion der Brillenglasränder zu finden.
 
@@ -130,7 +131,7 @@ Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeut
   \centering
      \includegraphics[width=0.9\textwidth]{img/glasses_2_wholeWembley.jpg}
   \caption{8 Mutmassliche Augapfel Paare}
-  \label{fig:Bild1}
+  \label{fig:glasses_2_wholeWembley}
 \end{figure}
 %\begin{SCfigure}
 %  \centering
@@ -143,8 +144,8 @@ Mit dieser Methode sind in diesem Bildauschnitt die Augäpfel von Walter eindeut
 %  \caption{Um die Ränder der Brille zu schliessen wurde ein binäres Closing angewandt.}
 %\end{SCfigure}
 \newpage
-\subsection*{T-Shirt}
-Das Walters T-Shirt aus weissen und roten Streifen besteht, wurde versucht einen zusammenhängenden Bereich aus roten und weissen Teilen zu finden.
+\subsection*{Pullover/Mütze}
+Da Walters Pullover/Mütze aus weissen und roten Streifen besteht, wurde versucht einen zusammenhängenden Bereich aus roten und weissen Teilen zu finden.
 
 \descFig{img/tshirt_whiteExtract.jpg}{Extraktion der weissen Farbe}{Zuerst wurden die weissen Pixel extrahiert. Das heisst die Pixel, bei welchen alle 3 RGB Kanäle Werte grösser als 0.8 besitzen.}
 
@@ -161,29 +162,30 @@ Das Walters T-Shirt aus weissen und roten Streifen besteht, wurde versucht einen
 \centering
   \includegraphics[width=0.9\textwidth]{img/tshirt_connectedFull.jpg}
   \caption{Verbundene weiss/rote Fläche}
-  \label{fig:Bild1}
+  \label{fig:tshirt_connectedFull}
 \end{figure}
 
-\noindent Mit der Matlab-Methode \emph{regionprops} wurden von der rot/weissen-Flächen die Zentren extrahiert. Diese bilden den Rückgabewert der T-Shirt-Analyse
+\noindent Mit der Matlab-Methode \emph{regionprops} wurden von der rot/weissen-Flächen die Zentren extrahiert. Diese bilden den Rückgabewert der Pullover/Mütze-Analyse.
 \newpage
 
-\subsection*{Brille und T-Shirt zusammenfügen}
-Nach der Detektion von Brille und T-Shirt wurden die beiden Daten zusammen gefügt.
+\subsection*{Brille und Pullover/Mütze zusammenfügen}
+Nach der Detektion von Brille und Pullover/Mütze wurden die beiden Daten zusammen gefügt.
 
-\descFig{img/findWally.jpg}{Mutmasslicher Walter}{Für jedes mutmassliche Augenpaar (Brille) wurden die mittels Matlab-Methode \mbox{\emph{knnsearch}} die nächsten 2 rot/weissen-Flächen (Mütze und T-Shirt) gesucht. Dort wo der Abstand zwischen Augenpaar und den beiden Flächen am kleinsten war, wurde Walter vermutet. Mittels Matlab-Methode \mbox{\emph{plot}} wurde vom Augenpaar aus ein Kreis gezeichnet um den Fund zu markieren.}
+\descFig{img/findWally.jpg}{Mutmasslicher Walter}{Für jedes mutmassliche Augenpaar (Brille) wurden die mittels Matlab-Methode \mbox{\emph{knnsearch}} die nächsten 2 rot/weissen-Flächen (Mütze und Pullover) gesucht. Dort wo der Abstand zwischen Augenpaar und den beiden Flächen am kleinsten war, wurde Walter vermutet. Mittels Matlab-Methode \mbox{\emph{plot}} wurde vom Augenpaar aus ein Kreis gezeichnet um den Fund zu markieren.}
 
 \noindent Wird der Algorithmus auf das ganze Bild angewandt, wird Walter ebenfalls gefunden.
 \begin{figure}[htbp] 
 \centering
   \includegraphics[width=0.9\textwidth]{img/findWallyFull.jpg}
   \caption{Mutmasslicher Walter auf dem gesamten Bild}
-  \label{fig:Bild1}
+  \label{fig:findWallyFull}
 \end{figure}
 
 \newpage
 \section*{Ergebnisse, Resultate}
+Wie in Abbildung~\ref{fig:findWallyFull} sichtbar wurde das Ziel Walter zu finden erreicht. Die im Konzept beschriebenen Methoden haben ausgereicht um im verwendeten Bild Walter zu finden. Für einen bildübergreifenden Algorithmus müsste die Lösung noch optimiert werden. Die Verwendung einer Ähnlichkeitssuche würde wahrscheinlich in verschiedenen Bilder bessere Resultate bringen, jedoch wurde diese in der Arbeit explizit ausgeschlossen.
 
-\section*{Programm-Repository}
+\section*{Projekt-Repository}
 Das vollständige Programm zu diesem Projekt finden Sie auf GitHub:\newline
 \url{https://github.com/flec/Wally}\newline
 Starten Sie \mbox{\emph{/matlab/findWally.m}}, um Walter zu finden.
